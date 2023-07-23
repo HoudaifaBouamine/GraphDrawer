@@ -32,16 +32,24 @@ namespace ucGraph
         int step_value_x;
         int step_value_y;
 
+        Point mouse;
+
         private void UserControl1_Load(object sender, EventArgs e)
         {
             set_steps_size(30, 30, 1, 5);
             draw_Origin();
 
+            save_mouse();
             timer_MouseChangeTracer.Start();
+           
             //draw_value(100, 200, 150, 400, new Pen(Color.Yellow, 3));
         }
 
-
+        private void save_mouse()
+        {
+            mouse.X = Cursor.Position.X;
+            mouse.Y = Cursor.Position.Y;
+        }
         private void draw_Origin()
         {
             draw_per();
@@ -174,12 +182,23 @@ namespace ucGraph
 
         private void timer_MouseChangeTracer_Tick(object sender, EventArgs e)
         {
+            
+
+            
+
             if (Control.MouseButtons == MouseButtons.Left)
             {
-                padding_x = Cursor.Position.X;
-                padding_y = Height - Cursor.Position.Y;
+
+                padding_x +=    Cursor.Position.X - mouse.X;
+                padding_y +=  - Cursor.Position.Y + mouse.Y;
                 draw_Origin();
+                save_mouse();
             }
+        }
+
+        private void ucGraph_MouseDown(object sender, MouseEventArgs e)
+        {
+            save_mouse();
         }
     }
 }
