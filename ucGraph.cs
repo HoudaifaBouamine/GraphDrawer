@@ -37,7 +37,7 @@ namespace ucGraph
             set_steps_size(30, 30, 1, 5);
             draw_Origin();
 
-
+            timer_MouseChangeTracer.Start();
             //draw_value(100, 200, 150, 400, new Pen(Color.Yellow, 3));
         }
 
@@ -159,6 +159,27 @@ namespace ucGraph
             public List<Point> points;
             public Color color;
 
+        }
+
+        private void ucGraph_MouseMove(object sender, MouseEventArgs e)
+        {
+
+            //if (Control.MouseButtons == MouseButtons.Left)
+            //{
+            //    padding_x = Cursor.Position.X;
+            //    padding_y = Height - Cursor.Position.Y;
+            //    draw_Origin();
+            //}
+        }
+
+        private void timer_MouseChangeTracer_Tick(object sender, EventArgs e)
+        {
+            if (Control.MouseButtons == MouseButtons.Left)
+            {
+                padding_x = Cursor.Position.X;
+                padding_y = Height - Cursor.Position.Y;
+                draw_Origin();
+            }
         }
     }
 }
