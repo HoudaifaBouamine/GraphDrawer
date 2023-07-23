@@ -6,3 +6,11 @@ C:\Users\admin\Desktop\git\ucGraph\obj\Debug\ucGraph.csproj.CoreCompileInputs.ca
 C:\Users\admin\Desktop\git\ucGraph\obj\Debug\ucGraph.dll
 C:\Users\admin\Desktop\git\ucGraph\obj\Debug\ucGraph.pdb
 C:\Users\admin\Desktop\git\ucGraph\obj\Debug\ucGraph.ucGraph.resources
+C:\Users\admin\Desktop\git\GraphDrawer\bin\Debug\ucGraph.dll
+C:\Users\admin\Desktop\git\GraphDrawer\bin\Debug\ucGraph.pdb
+C:\Users\admin\Desktop\git\GraphDrawer\obj\Debug\ucGraph.csproj.AssemblyReference.cache
+C:\Users\admin\Desktop\git\GraphDrawer\obj\Debug\ucGraph.ucGraph.resources
+C:\Users\admin\Desktop\git\GraphDrawer\obj\Debug\ucGraph.csproj.GenerateResource.cache
+C:\Users\admin\Desktop\git\GraphDrawer\obj\Debug\ucGraph.csproj.CoreCompileInputs.cache
+C:\Users\admin\Desktop\git\GraphDrawer\obj\Debug\ucGraph.dll
+C:\Users\admin\Desktop\git\GraphDrawer\obj\Debug\ucGraph.pdb
