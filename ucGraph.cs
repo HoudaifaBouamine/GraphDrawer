@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Drawing.Text;
 
 namespace ucGraph
 {
@@ -19,30 +20,15 @@ namespace ucGraph
             padding_y = 200;
             pen_per = new Pen(Color.FromArgb(206, 206, 206), 2);
 
-
         }
-
-        Graphics gfx;
-        int padding_x;
-        int padding_y;
-        Pen pen_per;
-       
-        int step_size_x;
-        int step_size_y;
-        int step_value_x;
-        int step_value_y;
-
-        Point mouse;
 
         private void UserControl1_Load(object sender, EventArgs e)
         {
-            set_steps_size(30, 30, 1, 5);
+            set_steps_size(30, 30, 1, 9);
             draw_Origin();
-
             save_mouse();
             timer_MouseChangeTracer.Start();
            
-            //draw_value(100, 200, 150, 400, new Pen(Color.Yellow, 3));
         }
 
         private void save_mouse()
@@ -55,64 +41,92 @@ namespace ucGraph
             draw_per();
             draw_steps_num();
             draw_steps();
-            // 
 
             void draw_steps()
             {
-                // x steps
 
                 int size = 3;
 
-                for (int i = padding_x; i < Width; i += step_size_x)
+                draw_x_steps();
+                draw_y_steps();
+
+
+                void draw_x_steps() 
                 {
-                    gfx.DrawLine(pen_per, i, Height - padding_y - size, i, Height - padding_y + size);
+                    for (int i = padding_x; i < Width; i += step_size_x)
+                    {
+                        gfx.DrawLine(pen_per, i, Height - padding_y - size, i, Height - padding_y + size);
+                    }
+
+                    for (int i = padding_x; i > -Width; i -= step_size_x)
+                    {
+                        gfx.DrawLine(pen_per, i, Height - padding_y - size, i, Height - padding_y + size);
+                    }
                 }
-
-                for (int i = padding_x; i > -Width; i -= step_size_x)
+                void draw_y_steps()
                 {
-                    gfx.DrawLine(pen_per, i, Height - padding_y - size, i, Height - padding_y + size);
-                }
+                    for (int i = Height - padding_y; i >= 0; i -= step_size_y)
+                    {
+                        gfx.DrawLine(pen_per, padding_x - size, i, padding_x + size, i);
+                    }
 
-                // y steps
-
-                for (int i = Height - padding_y; i >= 0; i -= step_size_y)
-                {
-                    gfx.DrawLine(pen_per, padding_x - size, i, padding_x + size, i);
-                }
-
-                for (int i = Height - padding_y; i < Height; i += step_size_y)
-                {
-                    gfx.DrawLine(pen_per, padding_x - size, i, padding_x + size, i);
+                    for (int i = Height - padding_y; i < Height; i += step_size_y)
+                    {
+                        gfx.DrawLine(pen_per, padding_x - size, i, padding_x + size, i);
+                    }
                 }
             }
 
             void draw_steps_num()
             {
+                draw_x_num();
+                draw_y_num();
 
-                for (int i = 0; i < Width / step_size_x; i++)
+
+                void draw_x_num()
                 {
-                    if(i != 0)
-                        gfx.DrawString((i * step_value_x).ToString(), Font, pen_per.Brush, new PointF(padding_x - 7 - ((i * step_value_x).ToString().Length-1) * ((float) Font.Size / 2.2f) + i * step_size_x, Height - padding_y + 3));
+                    int counter = 0;
+
+                    for (int i = padding_x; i < Width; i += step_size_x)
+                    {
+                        
+                        gfx.DrawString((counter * step_value_x).ToString(), Font, pen_per.Brush, new PointF(i - 12,Height -(padding_y) + 5));
+                        counter++;
+                    }
+                    counter = 0;
+                    for (int i = padding_x; i > -Width; i -= step_size_x)
+                    {
+                        gfx.DrawString((counter * step_value_x).ToString(), Font, pen_per.Brush, new PointF(i - 12, Height - (padding_y) + 5));
+                        counter--;
+                    }
+
+                 
                 }
 
-                for (int i = 0; i > - Width / step_size_x; i--)
+
+                void draw_y_num()
                 {
-                    if(i !=0)
-                        gfx.DrawString((i * step_value_x).ToString(), Font, pen_per.Brush, new PointF(padding_x - 7 - ((i * step_value_x).ToString().Length - 1) * ((float)Font.Size / 2.2f) + i * step_size_x, Height - padding_y + 3));
+                    int counter = -1;
+
+                    for (int i = Height - padding_y; i < Height; i += step_size_y)
+                    {
+
+                            gfx.DrawString((counter * step_value_y).ToString(), Font, pen_per.Brush, new PointF(padding_x - 27 - (((counter * step_value_y).ToString().Length - 2) * ((float)Font.Size)/2.2f) , Height - padding_y - counter * step_size_y));
+
+                        counter--;
+                    }
+
+                    counter = 1;
+                    for (int i = Height - padding_y; i >= 0; i -= step_size_y)
+                    {
+                            gfx.DrawString((counter * step_value_y).ToString(), Font, pen_per.Brush, new PointF(padding_x - 27 - (((counter * step_value_y).ToString().Length - 2) * ((float)Font.Size)/2.2f), Height - padding_y - counter * step_size_y));
+
+                        counter++;
+                    }
+
                 }
 
-                for (int i = 0; i < Height / step_size_y; i++)
-                {
-                    if(i != 0)
-                        gfx.DrawString((i * step_value_y).ToString(), Font, pen_per.Brush, new PointF(padding_x - 15 - (i * step_value_y).ToString().Length * 5, Height - padding_y - 10 - i * step_size_y));
-                }
-
-
-                for (int i = 0; i >- Height / step_size_y; i--)
-                {
-                    if (i != 0)
-                        gfx.DrawString((i * step_value_y).ToString(), Font, pen_per.Brush, new PointF(padding_x - 15 - (i * step_value_y).ToString().Length * 5, Height - padding_y - 10 - i * step_size_y));
-                }
+               
 
             }
 
@@ -200,5 +214,16 @@ namespace ucGraph
         {
             save_mouse();     
         }
+
+
+        public Graphics gfx;
+        public int padding_x;
+        public int padding_y;
+        public Pen pen_per;
+        public int step_size_x;
+        public int step_size_y;
+        public int step_value_x;
+        public int step_value_y;
+        public Point mouse;
     }
 }
