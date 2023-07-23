@@ -24,12 +24,13 @@ namespace ucGraph
 
         private void UserControl1_Load(object sender, EventArgs e)
         {
-            set_steps_size(30, 30, 4, 4);
+            set_steps_size(30, 30, 1f, 1f);
             draw_Origin();
             save_mouse();
             timer_MouseChangeTracer.Start();
             functions = new List<clsFunction>();
-            functions.Add(new clsFunction());
+            functions.Add(new clsFunction("sin(x)",0,0  ,new Pen(Color.Red,2)));
+
             draw_functions();
             
         }
@@ -92,8 +93,8 @@ namespace ucGraph
 
                     for (int i = padding_x; i < Width; i += step_size_x)
                     {
-                        
-                        gfx.DrawString((counter * step_value_x).ToString(), Font, pen_per.Brush, new PointF(i - 12,Height -(padding_y) + 5));
+
+                        gfx.DrawString((counter * step_value_x).ToString(), Font, pen_per.Brush, new PointF(i - 12,Height -(padding_y) + 5));;
                         counter++;
                     }
                     counter = 0;
@@ -148,7 +149,7 @@ namespace ucGraph
             
         }
 
-        private void set_steps_size(int size_x,int size_y,int value_x,int value_y)
+        private void set_steps_size(int size_x,int size_y,float value_x,float value_y)
         {
             step_size_x = size_x;
             step_size_y = size_y;
@@ -176,7 +177,7 @@ namespace ucGraph
 
         public void draw_value(int x, int y, Pen pen)
         {
-            draw_pixel(x * step_size_x / step_value_x,y * step_size_y/step_value_y,pen);    
+            draw_pixel(  (int)(x * step_size_x / step_value_x),(int)(y * step_size_y/step_value_y),pen);    
         }
 
         private void ucGraph_MouseMove(object sender, MouseEventArgs e)
@@ -215,13 +216,13 @@ namespace ucGraph
         private void draw_function(clsFunction fun)
         {
 
-            int x = -padding_x * step_value_x;
+            int x = (int) (-padding_x * step_value_x);
             int y = (int)(step_size_y * fun.calc((float)x / step_size_x));
 
-            for (int i = -padding_x * step_value_x; i < Width; i++)
+            for (int i = (int)(-padding_x * step_value_x); i < Width; i++)
             {
                 int tmp_y = (int)(step_size_y * fun.calc((float)i / step_size_x)) ;
-                draw_pixel( (int)((float)i/  step_value_x),(int) ((float)tmp_y / step_value_y), (int)((float)x / step_value_x), (int)((float)y / step_value_y), pen_per) ;
+                draw_pixel( (int)((float)i/  step_value_x),(int) ((float)tmp_y / step_value_y), (int)((float)x / step_value_x), (int)((float)y / step_value_y), fun.pen) ;
                 x = i;
                 y = tmp_y;
             }
@@ -241,35 +242,35 @@ namespace ucGraph
         public Pen pen_per;
         public int step_size_x;
         public int step_size_y;
-        public int step_value_x;
-        public int step_value_y;
+        public float step_value_x;
+        public float step_value_y;
         public Point mouse;
         public List<clsFunction> functions;
 
         public class clsFunction
         {
 
-            public string function { 
-                get 
-                {
-                    return function;
-                }
-                
-                
-                set 
-                { 
-                    function = value;
-                } 
-            }
+            public string function;
+          
+            
 
             public float  start;
             public float  end;
-            public Color color;
+            public Pen pen = new Pen(Color.AliceBlue,2);
+
 
             public float calc(float input)
             {
                 
-                return input*input;
+                return (float) Math.Sin(input);
+            }
+
+            public clsFunction(string function, float start, float end, Pen pen)
+            {
+                this.function = function;
+                this.start = start;
+                this.end = end;
+                this.pen = pen;
             }
         }
     }
