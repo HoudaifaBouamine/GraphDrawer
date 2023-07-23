@@ -14,3 +14,4 @@ C:\Users\admin\Desktop\git\GraphDrawer\obj\Debug\ucGraph.csproj.GenerateResource
 C:\Users\admin\Desktop\git\GraphDrawer\obj\Debug\ucGraph.csproj.CoreCompileInputs.cache
 C:\Users\admin\Desktop\git\GraphDrawer\obj\Debug\ucGraph.dll
 C:\Users\admin\Desktop\git\GraphDrawer\obj\Debug\ucGraph.pdb
+C:\Users\admin\Desktop\git\GraphDrawer\obj\Debug\ucGraph.Properties.Resources.resources

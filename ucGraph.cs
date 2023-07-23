@@ -24,11 +24,14 @@ namespace ucGraph
 
         private void UserControl1_Load(object sender, EventArgs e)
         {
-            set_steps_size(30, 30, 1, 9);
+            set_steps_size(30, 30, 4, 4);
             draw_Origin();
             save_mouse();
             timer_MouseChangeTracer.Start();
-           
+            functions = new List<clsFunction>();
+            functions.Add(new clsFunction());
+            draw_functions();
+            
         }
 
         private void save_mouse()
@@ -155,7 +158,7 @@ namespace ucGraph
 
         public void draw_pixel(int x,int y,Pen pen)
         {
-            y = Height - padding_x - y;
+            y = Height - padding_y - y;
             x = x + padding_x;
 
             gfx.FillEllipse(pen.Brush, x - pen.Width/ 2, y - pen.Width / 2, pen.Width, pen.Width);
@@ -163,8 +166,8 @@ namespace ucGraph
 
         public void draw_pixel(int x1, int y1,int x2,int y2, Pen pen)
         {
-            y1 = Height - padding_x -  y1;
-            y2 = Height - padding_x -  y2;
+            y1 = Height - padding_y -  y1;
+            y2 = Height - padding_y -  y2;
             x1 = x1 + padding_x;
             x2 = x2 + padding_x;
             gfx.DrawLine(pen,x1 - pen.Width / 2, y1 - pen.Width / 2, x2 - pen.Width / 2, y2 - pen.Width / 2);
@@ -174,13 +177,6 @@ namespace ucGraph
         public void draw_value(int x, int y, Pen pen)
         {
             draw_pixel(x * step_size_x / step_value_x,y * step_size_y/step_value_y,pen);    
-        }
-
-        class clsGraph
-        {
-            public List<Point> points;
-            public Color color;
-
         }
 
         private void ucGraph_MouseMove(object sender, MouseEventArgs e)
@@ -207,6 +203,7 @@ namespace ucGraph
                 padding_y +=  - Cursor.Position.Y + mouse.Y;
                 draw_Origin();
                 save_mouse();
+                draw_functions();
             }
         }
 
@@ -215,6 +212,28 @@ namespace ucGraph
             save_mouse();     
         }
 
+        private void draw_function(clsFunction fun)
+        {
+
+            int x = -padding_x * step_value_x;
+            int y = (int)(step_size_y * fun.calc((float)x / step_size_x));
+
+            for (int i = -padding_x * step_value_x; i < Width; i++)
+            {
+                int tmp_y = (int)(step_size_y * fun.calc((float)i / step_size_x)) ;
+                draw_pixel( (int)((float)i/  step_value_x),(int) ((float)tmp_y / step_value_y), (int)((float)x / step_value_x), (int)((float)y / step_value_y), pen_per) ;
+                x = i;
+                y = tmp_y;
+            }
+        }
+
+        private void draw_functions()
+        {
+            foreach(clsFunction fun in functions)
+            {
+                draw_function(fun);
+            }
+        }
 
         public Graphics gfx;
         public int padding_x;
@@ -225,5 +244,33 @@ namespace ucGraph
         public int step_value_x;
         public int step_value_y;
         public Point mouse;
+        public List<clsFunction> functions;
+
+        public class clsFunction
+        {
+
+            public string function { 
+                get 
+                {
+                    return function;
+                }
+                
+                
+                set 
+                { 
+                    function = value;
+                } 
+            }
+
+            public float  start;
+            public float  end;
+            public Color color;
+
+            public float calc(float input)
+            {
+                
+                return input*input;
+            }
+        }
     }
 }
