@@ -198,7 +198,7 @@ namespace ucGraph
 
         private void ucGraph_MouseDown(object sender, MouseEventArgs e)
         {
-            save_mouse();
+            save_mouse();     
         }
     }
 }
