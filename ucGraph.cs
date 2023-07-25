@@ -29,8 +29,9 @@ namespace ucGraph
             save_mouse();
             timer_MouseChangeTracer.Start();
             functions = new List<clsFunction>();
+            
             functions.Add(new clsFunction("sin(x)",0,0  ,new Pen(Color.Red,2)));
-
+            functions[0].set_expression("x*x + 2 * x - 1"); 
             draw_functions();
             
         }
@@ -250,24 +251,314 @@ namespace ucGraph
         public class clsFunction
         {
 
-            public string function;
+            private string fun_expresstion;
           
             
 
             public float  start;
             public float  end;
             public Pen pen = new Pen(Color.AliceBlue,2);
+            public char variable_char = 'x';
+            private float debug_input;
 
-
+            public void set_expression(string expression)
+            {
+                fun_expresstion = "";
+                for (int i = 0; i < expression.Length; i++)
+                {
+                    if (expression[i] != ' ')
+                    {
+                        fun_expresstion += expression[i];
+                    }
+                }
+               
+            }
+            
             public float calc(float input)
             {
-                
-                return (float) Math.Sin(input);
+                debug_input = input;
+                string fun = fun_expresstion;
+
+                int i_start = 0,i_end;
+
+                for(int i = fun.Length - 1; i  >= 0; i--)
+                {
+                    if (fun[i] == variable_char)
+                    {
+                        fun = fun.Remove(i, 1);
+                        fun = fun.Insert(i, input.ToString());
+                        
+                    }
+                }
+
+
+                while (!(result_is_calculated(fun)))
+                {
+                    bool no_brucets = true;
+
+                      for (int i = 0; i < fun.Length; i++)
+                      {
+
+                          if (fun[i] == '(')
+                          {
+                              i_start = i;
+                            no_brucets = false;
+                          }
+                          else if (fun[i] == ')')
+                          {
+                              i_end = i;
+                            no_brucets = false;
+
+
+                              string sub_result = (calc_op(fun.Substring(i_start + 1, i_end - i_start - 1)).ToString());
+                              fun = fun.Remove(i_start, i_end - i_start + 1);
+                              fun = fun.Insert(i_start, sub_result);
+                          }
+                      }
+
+                    if (no_brucets)
+                    {
+                        return calc_op(fun);
+                    }
+
+                }                
+
+
+                return Convert.ToSingle(fun);
             }
 
+            private float calc_op(string expression)
+            {
+
+                if(debug_input + 0.00001 >= -0.966666639 && debug_input - 0.00001 <= -0.966666639)
+                {
+                    int x = 0;
+                }
+
+                for (int i = 0; i < expression.Length; i++)
+                {
+                    if (i + 1 < expression.Length && (expression[i] == '*' || expression[i] == '/')) 
+                    {
+
+                        if (expression[i + 1] == '+' || expression[i + 1] == '-')
+                        {
+                            char remover_char = expression[i + 1];
+                            expression = expression.Remove(i + 1, 1);
+
+                            for(int j = i - 1;j >= 0; j--)
+                            {
+
+                                if (remover_char == '-')
+                                {
+                                    if (expression[j] == '-')
+                                    {
+
+                                        expression = expression.Remove(j, 1);
+                                        if(j != 0)
+                                            expression = expression.Insert(j, "+");
+                                        break;
+                                    }
+                                    else if (expression[j] == '+')
+                                    {
+
+                                        expression = expression.Remove(j, 1);
+                                            expression = expression.Insert(j, "-");
+                                        break;
+                                    }
+                                }
+                                
+
+                            }
+                        }
+                    
+                    }
+                    
+                }
+
+
+                for (int i = 0; i < expression.Length; i++)
+                {
+                    if (i + 1 < expression.Length && (expression[i] == '+' || expression[i] == '-'))
+                    {
+                        if ((expression[i+1] == '+' || expression[i+1] == '-'))
+                        {
+
+                            if(expression[i + 1] == expression[i])
+                            {
+                                expression = expression.Insert(i, "+");
+                            }
+                            else
+                            {
+                                expression = expression.Insert(i, "-");
+
+                            }
+
+                            expression = expression.Remove(i + 1, 2);
+                        }
+                    }
+
+                }
+
+                for (int i = 0; i < expression.Length; i++)
+                {
+
+                if (expression[i] == '*' || expression[i] == '/')
+                {
+
+
+
+                    // get left number
+                    int k = 1;
+
+                    k = 1;
+                    while ((i - k) >= 0 && (char.IsDigit(expression[i - k]) || expression[i - k] == '.'))
+                    {
+                        k++;
+                    }
+                    k--;
+
+                    float number1 = Convert.ToSingle(expression.Substring(i - k, k));
+
+                    int i_start = i - k;
+
+
+                    // get right number
+                        k = 1;
+                    while (i + k < expression.Length && (char.IsDigit(expression[i + k]) || expression[i + k] == '.'))
+                    {
+                        k++;
+                    }
+                    k--;
+
+                    float number2 = Convert.ToSingle(expression.Substring(i+1,k));
+                    int i_end = i + k;
+
+                    float result;
+
+                    if (expression[i] == '*') 
+                    {
+                        result = number1 * number2;
+                    }
+                    else
+                    {
+                        result = number1 / number2;
+                    }
+
+                    expression = expression.Remove(i_start,i_end - i_start + 1);
+                    expression = expression.Insert(i_start,result.ToString());
+
+                    i = 0;
+                }
+                   
+
+            }
+
+                for (int i = 0; i < expression.Length; i++)
+                {
+
+                    if ((expression[i] == '+' || expression[i] == '-' )&& i != 0)
+                    {
+
+
+
+                        // get left number
+                        int k = 1;
+
+                        k = 1;
+                        char signe_num_1 = '+';
+                        
+                        while ((i-k) >= 0 && (char.IsDigit(expression[i - k]) || expression[i - k] == '.'))
+                        {
+                            k++;
+
+                            
+                        }
+                        if(i-k >= 0)
+                        {
+                            signe_num_1 = expression[i - k];
+                        }
+                        k--;
+
+                      
+                        float number1 = Convert.ToSingle(expression.Substring(i - k, k));
+
+                        int i_start = i - k;
+
+
+                        // get right number
+                        k = 1;
+                        while (i + k < expression.Length && (char.IsDigit(expression[i + k]) || expression[i + k] == '.'))
+                        {
+                            k++;
+                        }
+                        k--;
+
+                        float number2 = Convert.ToSingle(expression.Substring(i + 1, k));
+                        int i_end = i + k;
+
+                        float result;
+                        int remove_singe = 0;
+
+                        if (expression[i] == '+')
+                        {
+                            if (signe_num_1 == '-')
+                            {
+                                remove_singe = 1;
+                                number1 *= -1;
+                            }
+
+                                result = number1 + number2;
+                        }
+                        else
+                        {
+                            if (signe_num_1 == '-')
+                            {
+                                number1 *= -1;
+                                remove_singe = 1;
+                            }
+
+                            result = number1 - number2;
+                        }
+
+                        expression = expression.Remove(i_start - remove_singe, i_end - i_start + 1 + remove_singe);
+                        expression = expression.Insert(i_start - remove_singe, result.ToString());
+
+                        i = 0;
+                    }
+
+
+                }
+
+
+
+                return Convert.ToSingle( expression);
+
+            }
+
+            private bool result_is_calculated(string result)
+            {
+
+                for(int i = 0; i < result.Length; i++)
+                {
+                    if(i == 0)
+                    {
+                        if (result[0] == '-')
+                        {
+                            continue;
+                        }
+                    }
+
+                    if (!(char.IsDigit(result[i]) || result[i] == '.'))
+                    {
+                        return false;
+                    }
+                }
+
+                return true;
+            }
             public clsFunction(string function, float start, float end, Pen pen)
             {
-                this.function = function;
+                this.fun_expresstion = function;
                 this.start = start;
                 this.end = end;
                 this.pen = pen;
