@@ -30,8 +30,16 @@ namespace ucGraph
             timer_MouseChangeTracer.Start();
             functions = new List<clsFunction>();
             
-            functions.Add(new clsFunction("sin(x)",0,0  ,new Pen(Color.Red,2)));
-            functions[0].set_expression("x*x + 2 * x - 1"); 
+            functions.Add(new clsFunction("x",0,0  ,new Pen(Color.Red,2)));
+            functions[0].set_expression("x");
+            functions.Add(new clsFunction("x^2", 0, 0, new Pen(Color.Blue, 2)));
+            functions[1].set_expression("x*x");
+            functions.Add(new clsFunction("x^3", 0, 0, new Pen(Color.Green, 2)));
+            functions[2].set_expression("x*x*x");
+            functions.Add(new clsFunction("x^4", 0, 0, new Pen(Color.Yellow, 2)));
+            functions[3].set_expression("x*x*x*x");
+            functions.Add(new clsFunction("x^5", 0, 0, new Pen(Color.Purple, 2)));
+            functions[4].set_expression("x*x*x*x*x");
             draw_functions();
             
         }
@@ -172,6 +180,7 @@ namespace ucGraph
             y2 = Height - padding_y -  y2;
             x1 = x1 + padding_x;
             x2 = x2 + padding_x;
+
             gfx.DrawLine(pen,x1 - pen.Width / 2, y1 - pen.Width / 2, x2 - pen.Width / 2, y2 - pen.Width / 2);
 
         }
@@ -286,7 +295,7 @@ namespace ucGraph
                     if (fun[i] == variable_char)
                     {
                         fun = fun.Remove(i, 1);
-                        fun = fun.Insert(i, input.ToString());
+                        fun = fun.Insert(i, input.ToString("F"));
                         
                     }
                 }
@@ -330,50 +339,52 @@ namespace ucGraph
             private float calc_op(string expression)
             {
 
-                if(debug_input + 0.00001 >= -0.966666639 && debug_input - 0.00001 <= -0.966666639)
-                {
-                    int x = 0;
-                }
+  
 
-                for (int i = 0; i < expression.Length; i++)
-                {
-                    if (i + 1 < expression.Length && (expression[i] == '*' || expression[i] == '/')) 
-                    {
+                //for (int i = 0; i < expression.Length; i++)
+                //{
+                //    if (i + 1 < expression.Length && (expression[i] == '*' || expression[i] == '/')) 
+                //    {
 
-                        if (expression[i + 1] == '+' || expression[i + 1] == '-')
-                        {
-                            char remover_char = expression[i + 1];
-                            expression = expression.Remove(i + 1, 1);
+                //        if (expression[i + 1] == '+' || expression[i + 1] == '-')
+                //        {
+                //            char remover_char = expression[i + 1];
+                //            expression = expression.Remove(i + 1, 1);
 
-                            for(int j = i - 1;j >= 0; j--)
-                            {
+                //            for(int j = i - 1;j >= 0; j--)
+                //            {
 
-                                if (remover_char == '-')
-                                {
-                                    if (expression[j] == '-')
-                                    {
+                //                if (remover_char == '-')
+                //                {
+                //                    if (expression[j] == '-')
+                //                    {
 
-                                        expression = expression.Remove(j, 1);
-                                        if(j != 0)
-                                            expression = expression.Insert(j, "+");
-                                        break;
-                                    }
-                                    else if (expression[j] == '+')
-                                    {
+                //                        //expression = expression.Remove(j, 1);
 
-                                        expression = expression.Remove(j, 1);
-                                            expression = expression.Insert(j, "-");
-                                        break;
-                                    }
-                                }
+                //                        //if(j != 0)
+                //                        //    expression = expression.Insert(j, "+");
+                //                        break;
+                //                    }
+                //                    else if (expression[j] == '+')
+                //                    {
+
+                //                        expression = expression.Remove(j, 1);
+                //                            expression = expression.Insert(j, "-");
+                //                        break;
+                //                    }
+                //                    else if(expression[j] == '*' || expression[j] == '/')
+                //                    {
+                //                        break;
+                //                    }
+                //                }
                                 
 
-                            }
-                        }
+                //            }
+                //        }
                     
-                    }
+                //    }
                     
-                }
+                //}
 
 
                 for (int i = 0; i < expression.Length; i++)
@@ -411,7 +422,7 @@ namespace ucGraph
                     int k = 1;
 
                     k = 1;
-                    while ((i - k) >= 0 && (char.IsDigit(expression[i - k]) || expression[i - k] == '.'))
+                    while ((i - k) >= 0 && (char.IsDigit(expression[i - k]) || expression[i - k] == '.' || expression[i - k] == '-'))
                     {
                         k++;
                     }
@@ -424,7 +435,7 @@ namespace ucGraph
 
                     // get right number
                         k = 1;
-                    while (i + k < expression.Length && (char.IsDigit(expression[i + k]) || expression[i + k] == '.'))
+                    while (i + k < expression.Length && (char.IsDigit(expression[i + k]) || expression[i + k] == '.') || (k == 1 && expression[i + k] == '-'))
                     {
                         k++;
                     }
@@ -445,7 +456,7 @@ namespace ucGraph
                     }
 
                     expression = expression.Remove(i_start,i_end - i_start + 1);
-                    expression = expression.Insert(i_start,result.ToString());
+                    expression = expression.Insert(i_start,result.ToString("F"));
 
                     i = 0;
                 }
@@ -521,7 +532,7 @@ namespace ucGraph
                         }
 
                         expression = expression.Remove(i_start - remove_singe, i_end - i_start + 1 + remove_singe);
-                        expression = expression.Insert(i_start - remove_singe, result.ToString());
+                        expression = expression.Insert(i_start - remove_singe, result.ToString("F"));
 
                         i = 0;
                     }
