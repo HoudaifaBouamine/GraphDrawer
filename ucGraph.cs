@@ -31,15 +31,10 @@ namespace ucGraph
             functions = new List<clsFunction>();
             
             functions.Add(new clsFunction("x",0,0  ,new Pen(Color.Red,2)));
-            functions[0].set_expression("x");
-            functions.Add(new clsFunction("x^2", 0, 0, new Pen(Color.Blue, 2)));
-            functions[1].set_expression("x*x");
-            functions.Add(new clsFunction("x^3", 0, 0, new Pen(Color.Green, 2)));
-            functions[2].set_expression("x*x*x");
-            functions.Add(new clsFunction("x^4", 0, 0, new Pen(Color.Yellow, 2)));
-            functions[3].set_expression("x*x*x*x");
-            functions.Add(new clsFunction("x^5", 0, 0, new Pen(Color.Purple, 2)));
-            functions[4].set_expression("x*x*x*x*x");
+            functions[0].set_expression("2 *(5 - 1) - 3 * (1 - 2)");
+            //functions.Add(new clsFunction("x^2", 0, 0, new Pen(Color.Blue, 2)));
+            //functions[1].set_expression("x*x");
+
             draw_functions();
             
         }
@@ -303,33 +298,42 @@ namespace ucGraph
 
                 while (!(result_is_calculated(fun)))
                 {
-                    bool no_brucets = true;
+                    bool more_calc = true;
 
-                      for (int i = 0; i < fun.Length; i++)
-                      {
+                    for (int i = 0; i < fun.Length; i++)
+                    {
 
-                          if (fun[i] == '(')
-                          {
-                              i_start = i;
-                            no_brucets = false;
-                          }
-                          else if (fun[i] == ')')
-                          {
-                              i_end = i;
-                            no_brucets = false;
+                        if (fun[i] == '(')
+                        {
+                            i_start = i;
+                        }
+                        else if (fun[i] == ')')
+                        {
+                            i_end = i;
 
 
-                              string sub_result = (calc_op(fun.Substring(i_start + 1, i_end - i_start - 1)).ToString());
-                              fun = fun.Remove(i_start, i_end - i_start + 1);
-                              fun = fun.Insert(i_start, sub_result);
-                          }
-                      }
+                            string sub_result = (calc_op(fun.Substring(i_start + 1, i_end - i_start - 1)).ToString());
+                            fun = fun.Remove(i_start, i_end - i_start + 1);
+                            fun = fun.Insert(i_start, sub_result);
+                            i = 0;
+                            more_calc = false;
+                        }
 
-                    if (no_brucets)
+                        if(!(char.IsDigit( fun[i]) || fun[i] == '.' || (fun[i] == '-' && i == 0)))
+                        {
+                            more_calc = true;
+                        }
+
+                    }
+
+                    if (more_calc)
                     {
                         return calc_op(fun);
                     }
-
+                    else
+                    {
+                        return Convert.ToSingle(fun);
+                    }
                 }                
 
 
@@ -386,7 +390,7 @@ namespace ucGraph
                     
                 //}
 
-
+                
                 for (int i = 0; i < expression.Length; i++)
                 {
                     if (i + 1 < expression.Length && (expression[i] == '+' || expression[i] == '-'))
@@ -422,7 +426,7 @@ namespace ucGraph
                     int k = 1;
 
                     k = 1;
-                    while ((i - k) >= 0 && (char.IsDigit(expression[i - k]) || expression[i - k] == '.' || expression[i - k] == '-'))
+                    while ((i - k) >= 0 && (char.IsDigit(expression[i - k]) || expression[i - k] == '.') && expression[i - k + 1] != '-')
                     {
                         k++;
                     }
@@ -435,7 +439,7 @@ namespace ucGraph
 
                     // get right number
                         k = 1;
-                    while (i + k < expression.Length && (char.IsDigit(expression[i + k]) || expression[i + k] == '.') || (k == 1 && expression[i + k] == '-'))
+                     while (i + k < expression.Length && (char.IsDigit(expression[i + k]) || expression[i + k] == '.') || (k == 1 && expression[i + k] == '-'))
                     {
                         k++;
                     }
