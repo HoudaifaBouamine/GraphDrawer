@@ -1,0 +1,8 @@
+C:\Users\admin\Desktop\git\GraphDrawer\clsFunction\bin\Debug\clsFunction.exe.config
+C:\Users\admin\Desktop\git\GraphDrawer\clsFunction\bin\Debug\clsFunction.exe
+C:\Users\admin\Desktop\git\GraphDrawer\clsFunction\bin\Debug\clsFunction.pdb
+C:\Users\admin\Desktop\git\GraphDrawer\clsFunction\obj\Debug\clsFunction.csproj.AssemblyReference.cache
+C:\Users\admin\Desktop\git\GraphDrawer\clsFunction\obj\Debug\clsFunction.csproj.SuggestedBindingRedirects.cache
+C:\Users\admin\Desktop\git\GraphDrawer\clsFunction\obj\Debug\clsFunction.csproj.CoreCompileInputs.cache
+C:\Users\admin\Desktop\git\GraphDrawer\clsFunction\obj\Debug\clsFunction.exe
+C:\Users\admin\Desktop\git\GraphDrawer\clsFunction\obj\Debug\clsFunction.pdb
