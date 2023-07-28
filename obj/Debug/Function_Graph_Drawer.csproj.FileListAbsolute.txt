@@ -1,0 +1,14 @@
+C:\Users\admin\Desktop\git\Function_Graph_Drawer\bin\Debug\Function_Graph_Drawer.exe.config
+C:\Users\admin\Desktop\git\Function_Graph_Drawer\bin\Debug\Function_Graph_Drawer.exe
+C:\Users\admin\Desktop\git\Function_Graph_Drawer\bin\Debug\Function_Graph_Drawer.pdb
+C:\Users\admin\Desktop\git\Function_Graph_Drawer\bin\Debug\ucGraph.dll
+C:\Users\admin\Desktop\git\Function_Graph_Drawer\bin\Debug\ucGraph.pdb
+C:\Users\admin\Desktop\git\Function_Graph_Drawer\obj\Debug\Function_Graph_Drawer.csproj.AssemblyReference.cache
+C:\Users\admin\Desktop\git\Function_Graph_Drawer\obj\Debug\Function_Graph_Drawer.csproj.SuggestedBindingRedirects.cache
+C:\Users\admin\Desktop\git\Function_Graph_Drawer\obj\Debug\Function_Graph_Drawer.Properties.Resources.resources
+C:\Users\admin\Desktop\git\Function_Graph_Drawer\obj\Debug\Function_Graph_Drawer.csproj.GenerateResource.cache
+C:\Users\admin\Desktop\git\Function_Graph_Drawer\obj\Debug\Function_Graph_Drawer.csproj.CoreCompileInputs.cache
+C:\Users\admin\Desktop\git\Function_Graph_Drawer\obj\Debug\Function_Graph_Drawer.csproj.CopyComplete
+C:\Users\admin\Desktop\git\Function_Graph_Drawer\obj\Debug\Function_Graph_Drawer.exe
+C:\Users\admin\Desktop\git\Function_Graph_Drawer\obj\Debug\Function_Graph_Drawer.pdb
+C:\Users\admin\Desktop\git\Function_Graph_Drawer\obj\Debug\Function_Graph_Drawer.frm_Graph_Drawer.resources
