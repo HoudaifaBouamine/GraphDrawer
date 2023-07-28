@@ -14,11 +14,10 @@ namespace nsFunction
     {
         static void Main(string[] args)
         {
-            clsFunction fun = new clsFunction("1 + sin(3.2 - 4 * 3) + 5 - 9 * 0.1 * (1-cos(43 - exp(3 + sin(3.2)))) - (5-4 * (3-1)) + exp(1-2 * sqrt(20.32)+3*3+4-3)");
+            clsFunction fun = new clsFunction("1 + sin(1-0.2 * pow (2,3))");
 
             Console.WriteLine(fun.calc(3.14f));
 
-            int x = 0;
             Console.ReadLine();
         }
 
@@ -41,7 +40,6 @@ namespace nsFunction
 
                 string current_number = "";
                 enCommonFun fun_type;
-                // "1+(4-5)+7*(5-8)"
                 
                 for(int i = 0; i < expression.Length; i++)
                 {
@@ -71,6 +69,14 @@ namespace nsFunction
                         op_nodes.Add(new stOpNode(stOpNode.enType.eOp, expression[i]));
                         current_number = "";
                     }
+                    else if (expression[i] == ',')
+                    {
+                        if (current_number != "")
+                            op_nodes.Add(new stOpNode(stOpNode.enType.eNumber, Convert.ToSingle(current_number)));
+
+                        op_nodes.Add(new stOpNode(stOpNode.enType.eSeperator, expression[i]));
+                        current_number = "";
+                    }
                     else if (char.IsDigit(expression[i]) || expression[i] == '.')
                     {
                         current_number += expression[i];
@@ -93,6 +99,7 @@ namespace nsFunction
 
                         i = i + funcs_names[((int)fun_type)].Length -1;// skip the rest of the function
                     }
+                    
                 }
 
                 if (current_number != "")
@@ -235,10 +242,12 @@ namespace nsFunction
 
                     int index_open_bracket = -1;
                     int index_close_bracket = -1;
+                    int index_seperator = -1;
+                    bool mul_variable = false;
 
                     for (int i = 0; i < list_op_nodes.Count; i++)
                     {
-                        
+
                         if (list_op_nodes[i].isFunction())
                         {
                             index_open_bracket = i + 1;
@@ -247,12 +256,34 @@ namespace nsFunction
                         {
                             index_close_bracket = i;
 
-                            float func_input_result = calc_between_Brackets(subOperation(index_open_bracket + 1, index_close_bracket - 1));
-                            float result = apply_function(list_op_nodes[index_open_bracket-1].fun, func_input_result);
-                            list_op_nodes.RemoveRange(index_open_bracket - 1, index_close_bracket - (index_open_bracket - 1) + 1);
-                            list_op_nodes.Insert(index_open_bracket-1, new stOpNode(stOpNode.enType.eNumber, result));
-                            i = 0;
-                            index_open_bracket = -1;
+                            if (mul_variable)
+                            {
+                                float func_input_result_1 = calc_between_Brackets(subOperation(index_open_bracket + 1, index_seperator - 1));
+                                float func_input_result_2 = calc_between_Brackets(subOperation(index_seperator + 1, index_close_bracket - 1));
+                                float result = apply_function(list_op_nodes[index_open_bracket - 1].fun, func_input_result_1, func_input_result_2);
+                                list_op_nodes.RemoveRange(index_open_bracket - 1, index_close_bracket - (index_open_bracket - 1) + 1);
+                                list_op_nodes.Insert(index_open_bracket - 1, new stOpNode(stOpNode.enType.eNumber, result));
+                                i = -1;
+                                index_open_bracket = -1;
+                                mul_variable = false;
+                            }
+                            else
+                            {
+
+                                float func_input_result = calc_between_Brackets(subOperation(index_open_bracket + 1, index_close_bracket - 1));
+                                float result = apply_function(list_op_nodes[index_open_bracket - 1].fun, func_input_result);
+                                list_op_nodes.RemoveRange(index_open_bracket - 1, index_close_bracket - (index_open_bracket - 1) + 1);
+                                list_op_nodes.Insert(index_open_bracket - 1, new stOpNode(stOpNode.enType.eNumber, result));
+                                i = -1;
+                                index_open_bracket = -1;
+
+                            }
+                        }
+                        else if (list_op_nodes[i].isSeperator() && index_open_bracket != -1)
+                        {
+                            mul_variable = true;
+                            index_seperator = i;
+
                         }
 
 
@@ -261,7 +292,7 @@ namespace nsFunction
                     // Comming soon
                 }
 
-                float apply_function(enCommonFun fun_type,float fun_input)
+                float apply_function(enCommonFun fun_type,float fun_input,float fun_input_2 = 0)
                 {
 
                   
@@ -279,7 +310,7 @@ namespace nsFunction
                             return (float)Math.Log10(fun_input);
 
                         case enCommonFun.pow:
-                            return 404;//(float)Math.Pow(fun_input,); // To Handle this case we must handle multivariable function and this for later time
+                            return (float)Math.Pow(fun_input,fun_input_2);
 
                         case enCommonFun.sqrt:
                             return (float)Math.Sqrt(fun_input);
@@ -340,7 +371,8 @@ namespace nsFunction
                     eOpen,
                     eClose,
                     eFunction,
-                    eVariable
+                    eVariable,
+                    eSeperator
                 }
 
                 public stOpNode(stOpNode opNode)
@@ -386,6 +418,10 @@ namespace nsFunction
                     return type == enType.eClose;
                 }
 
+                public bool isSeperator()
+                {
+                    return type == enType.eSeperator;
+                }
                 public void set(enType type,float number)
                 {
                     this.type = type;
