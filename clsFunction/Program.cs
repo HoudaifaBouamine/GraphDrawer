@@ -14,7 +14,8 @@ namespace nsFunction
     {
         static void Main(string[] args)
         {
-            clsFunction fun = new clsFunction("1 + sin(3.2 - 4 * 3) + 5 - 9 * 0.1 - (5-4 * (3-1)) + exp(1-2+3*3+4-3)");
+            clsFunction fun = new clsFunction("1 + sin(3.2 - 4 * 3) + 5 - 9 * 0.1 * (1-cos(43 - exp(3 + sin(3.2)))) - (5-4 * (3-1)) + exp(1-2 * sqrt(20.32)+3*3+4-3)");
+
             Console.WriteLine(fun.calc(3.14f));
 
             int x = 0;
@@ -216,6 +217,10 @@ namespace nsFunction
                             list_op_nodes.Insert(index_open_bracket, new stOpNode(stOpNode.enType.eNumber, result));
 
                             i = -1;
+                            index_open_bracket = -1;
+                        }
+                        else if (list_op_nodes[i].isFunction())
+                        {
                             index_open_bracket = -1;
                         }
                     }
