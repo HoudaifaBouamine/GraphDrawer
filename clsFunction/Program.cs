@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Security.Permissions;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -13,7 +14,7 @@ namespace nsFunction
     {
         static void Main(string[] args)
         {
-            clsFunction fun = new clsFunction("1 + 2 * (2 * x - 5 * 4.2)");
+            clsFunction fun = new clsFunction("1 + sin(3.2 - 4 * 3) + 5 - 9 * 0.1 - (5-4 * (3-1)) + exp(1-2+3*3+4-3)");
             fun.calc(3.14f);
             int x = 0;
             Console.ReadLine();
@@ -165,9 +166,11 @@ namespace nsFunction
                 List<stOpNode> list_op_nodes; copy_list();
                 replace_var_with_input();
                 find_free_brackets_and_calc();
-                find_common_function_and_calc();
+                find_common_function_and_calc();//
+                find_free_brackets_and_calc();
 
-                return input;
+                float final_result = calc_between_Brackets(list_op_nodes);
+                return final_result;
 
 
                 void copy_list()
@@ -193,7 +196,7 @@ namespace nsFunction
 
                 void find_free_brackets_and_calc()
                 {
-                    int index_open_bracket = 0,index_close_bracket = 0;
+                    int index_open_bracket = -1,index_close_bracket = 0;
 
                     for(int i = 0; i < list_op_nodes.Count(); i++)
                     {
@@ -202,7 +205,7 @@ namespace nsFunction
                         {
                             index_open_bracket = i;
                         }
-                        else if (list_op_nodes[i].isCloseBraket())
+                        else if (list_op_nodes[i].isCloseBraket() && index_open_bracket != -1)
                         {
                             index_close_bracket = i;
 
@@ -212,15 +215,98 @@ namespace nsFunction
                             list_op_nodes.Insert(index_open_bracket, new stOpNode(stOpNode.enType.eNumber, result));
 
                             i = -1;
+                            index_open_bracket = -1;
                         }
                     }
 
-
+                    return;
                 }
 
                 void find_common_function_and_calc()
                 {
+
+                    // this handle only non-composite function , composite function later
+
+
+                    for(int i = 0; i < list_op_nodes.Count; i++)
+                    {
+                        if (list_op_nodes[i].isFunction())
+                        {
+                            int index_open_bracket = i + 1;
+                            int index_close_bracket = 0;
+
+                            for(int j = 2; i + j <  list_op_nodes.Count; j++)
+                            {
+                                if ( list_op_nodes[i + j].isCloseBraket())
+                                {
+                                    index_close_bracket = i + j;
+                                    break;
+                                }
+                            }
+
+                            float func_input_result = calc_between_Brackets(subOperation(index_open_bracket + 1, index_close_bracket - 1));
+
+                            float result = apply_function(list_op_nodes[i].fun, func_input_result);
+
+                            list_op_nodes.RemoveRange(i , index_close_bracket - i + 1);
+                            list_op_nodes.Insert(i, new stOpNode(stOpNode.enType.eNumber, result));
+                            i = 0;
+                        }
+                    }
                     // Comming soon
+                }
+
+                float apply_function(enCommonFun fun_type,float fun_input)
+                {
+
+                  
+
+
+                    switch (fun_type)
+                    {
+                        case enCommonFun.exp:
+                            return (float)Math.Exp(fun_input);
+
+                        case enCommonFun.ln:
+                            return (float)Math.Log(fun_input);
+
+                        case enCommonFun.log:
+                            return (float)Math.Log10(fun_input);
+
+                        case enCommonFun.pow:
+                            return 404;//(float)Math.Pow(fun_input,); // To Handle this case we must handle multivariable function and this for later time
+
+                        case enCommonFun.sqrt:
+                            return (float)Math.Sqrt(fun_input);
+
+                        case enCommonFun.cos:
+                            return (float)Math.Cos(fun_input);
+
+                        case enCommonFun.sin:
+                            return (float)Math.Sin(fun_input);
+
+                        case enCommonFun.tan:
+                            return (float)Math.Tan(fun_input);
+
+                        case enCommonFun.acos:
+                            return (float)Math.Acos(fun_input);
+
+                        case enCommonFun.asin:
+                            return (float)Math.Asin(fun_input);
+
+                        case enCommonFun.atan:
+                            return (float)Math.Atan(fun_input);
+
+                        case enCommonFun.none:
+                            return -505;
+                            
+                        default:
+                            return -111;
+                    }
+                    
+
+
+
                 }
 
                 List<stOpNode> subOperation(int begin,int end)
