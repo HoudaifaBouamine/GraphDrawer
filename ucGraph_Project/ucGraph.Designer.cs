@@ -48,7 +48,7 @@
             // 
             // timer_MouseChangeTracer
             // 
-            this.timer_MouseChangeTracer.Interval = 20;
+            this.timer_MouseChangeTracer.Interval = 40;
             this.timer_MouseChangeTracer.Tick += new System.EventHandler(this.timer_MouseChangeTracer_Tick);
             // 
             // ucGraph

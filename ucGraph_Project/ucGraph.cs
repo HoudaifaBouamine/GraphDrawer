@@ -22,6 +22,11 @@ namespace ucGraph
 
         }
 
+        Form owner;
+        public void set_owner(Form frm)
+        {
+            this.owner = frm;
+        }
         private void UserControl1_Load(object sender, EventArgs e)
         {
             set_steps_size(30, 30, 1f, 1f);
@@ -219,11 +224,8 @@ namespace ucGraph
 
         private void timer_MouseChangeTracer_Tick(object sender, EventArgs e)
         {
-            
 
-            
-
-            if (Control.MouseButtons == MouseButtons.Left)
+            if (Control.MouseButtons == MouseButtons.Left && mouse_in_range())
             {
 
                 padding_x +=    Cursor.Position.X - mouse.X;
@@ -231,6 +233,14 @@ namespace ucGraph
                 draw_Origin();
                 save_mouse();
                 draw_functions();
+            }
+
+            bool mouse_in_range()
+            {
+                if(owner != null)
+                    return Cursor.Position.X >= this.owner.Location.X  && Cursor.Position.X < Width + this.owner.Location.X && Cursor.Position.Y >= this.owner.Location.Y +(this.owner.Height-this.Height - 5) && Cursor.Position.Y < Height + this.owner.Location.Y && owner.Tag.ToString() == "1";
+                else 
+                    return true;
             }
         }
 
