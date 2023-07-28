@@ -15,7 +15,8 @@ namespace nsFunction
         static void Main(string[] args)
         {
             clsFunction fun = new clsFunction("1 + sin(3.2 - 4 * 3) + 5 - 9 * 0.1 - (5-4 * (3-1)) + exp(1-2+3*3+4-3)");
-            fun.calc(3.14f);
+            Console.WriteLine(fun.calc(3.14f));
+
             int x = 0;
             Console.ReadLine();
         }
@@ -227,31 +228,30 @@ namespace nsFunction
 
                     // this handle only non-composite function , composite function later
 
+                    int index_open_bracket = -1;
+                    int index_close_bracket = -1;
 
-                    for(int i = 0; i < list_op_nodes.Count; i++)
+                    for (int i = 0; i < list_op_nodes.Count; i++)
                     {
+                        
                         if (list_op_nodes[i].isFunction())
                         {
-                            int index_open_bracket = i + 1;
-                            int index_close_bracket = 0;
-
-                            for(int j = 2; i + j <  list_op_nodes.Count; j++)
-                            {
-                                if ( list_op_nodes[i + j].isCloseBraket())
-                                {
-                                    index_close_bracket = i + j;
-                                    break;
-                                }
-                            }
+                            index_open_bracket = i + 1;
+                        }
+                        else if (list_op_nodes[i].isCloseBraket() && index_open_bracket != -1)
+                        {
+                            index_close_bracket = i;
 
                             float func_input_result = calc_between_Brackets(subOperation(index_open_bracket + 1, index_close_bracket - 1));
-
-                            float result = apply_function(list_op_nodes[i].fun, func_input_result);
-
-                            list_op_nodes.RemoveRange(i , index_close_bracket - i + 1);
-                            list_op_nodes.Insert(i, new stOpNode(stOpNode.enType.eNumber, result));
+                            float result = apply_function(list_op_nodes[index_open_bracket-1].fun, func_input_result);
+                            list_op_nodes.RemoveRange(index_open_bracket - 1, index_close_bracket - (index_open_bracket - 1) + 1);
+                            list_op_nodes.Insert(index_open_bracket-1, new stOpNode(stOpNode.enType.eNumber, result));
                             i = 0;
+                            index_open_bracket = -1;
                         }
+
+
+
                     }
                     // Comming soon
                 }
