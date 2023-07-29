@@ -44,6 +44,9 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="ucFunctionControl_Project">
+      <HintPath>ucFunctionControl_Project\bin\Debug\ucFunctionControl_Project.dll</HintPath>
+    </Reference>
     <Reference Include="ucGraph">
       <HintPath>..\GraphDrawer\bin\Debug\ucGraph.dll</HintPath>
     </Reference>

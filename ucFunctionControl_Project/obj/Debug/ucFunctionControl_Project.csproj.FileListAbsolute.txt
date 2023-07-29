@@ -8,3 +8,6 @@ C:\Users\admin\Desktop\git\GraphDrawer\ucFunctionControl_Project\obj\Debug\ucFun
 C:\Users\admin\Desktop\git\GraphDrawer\ucFunctionControl_Project\obj\Debug\ucFunctionControl_Project.pdb
 C:\Users\admin\Desktop\git\GraphDrawer\ucFunctionControl_Project\obj\Debug\ucFunctionControl_Project.Properties.Resources.resources
 C:\Users\admin\Desktop\git\GraphDrawer\ucFunctionControl_Project\obj\Debug\ucFunctionControl_Project.ucFunctionTextBox.resources
+C:\Users\admin\Desktop\git\GraphDrawer\ucFunctionControl_Project\bin\Debug\ucGraph.dll
+C:\Users\admin\Desktop\git\GraphDrawer\ucFunctionControl_Project\bin\Debug\ucGraph.pdb
+C:\Users\admin\Desktop\git\GraphDrawer\ucFunctionControl_Project\obj\Debug\ucFunctionControl_Project.csproj.CopyComplete

@@ -37,6 +37,7 @@
             // 
             this.textBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
             this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 17.8F);
+            this.textBox1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(206)))), ((int)(((byte)(206)))), ((int)(((byte)(206)))));
             this.textBox1.Location = new System.Drawing.Point(50, 3);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(300, 41);
@@ -51,6 +52,7 @@
             this.panel1.TabIndex = 1;
             this.panel1.BackColorChanged += new System.EventHandler(this.panel1_BackColorChanged);
             this.panel1.Click += new System.EventHandler(this.panel1_Click);
+            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
             // ucFunctionTextBox
             // 

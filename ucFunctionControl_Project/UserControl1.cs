@@ -31,6 +31,7 @@ namespace ucFunctionControl_Project
             
         }
 
+        public ucGraph.ucGraph graph;
         private void ucFunctionControler_Load(object sender, EventArgs e)
         {
             functions = new List<ucFunctionTextBox>();
@@ -113,12 +114,13 @@ namespace ucFunctionControl_Project
             uc_fun.panel1.BackColor = Color.Red;
             functions.Add(uc_fun);
             this.Controls.Add(uc_fun);
-
         }
 
         public bool b_draw = false;
         private void button2_Click(object sender, EventArgs e)
         {
+            graph.add_new_func(functions[functions.Count-1].expression, new Pen(functions[functions.Count-1].color, 2));
+            
             b_draw = true;
         }
     }

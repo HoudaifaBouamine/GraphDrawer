@@ -37,8 +37,15 @@ namespace ucFunctionControl_Project
 
         private void panel1_Click(object sender, EventArgs e)
         {
+            
             colorDialog1.ShowDialog();
+            
             panel1.BackColor = colorDialog1.Color;
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }
