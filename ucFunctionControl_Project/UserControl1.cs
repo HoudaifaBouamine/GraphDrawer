@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ucFunctionControl_Project.Properties;
+using System.Diagnostics;
 
 namespace ucFunctionControl_Project
 {
@@ -106,12 +107,14 @@ namespace ucFunctionControl_Project
         }
 
         public List<ucFunctionTextBox> functions;
+        public int counter = 0;
         private void button1_Click(object sender, EventArgs e)
         {
             ucFunctionTextBox uc_fun = new ucFunctionTextBox();
 
             uc_fun.Location = new Point(30,functions.Count * (uc_fun.Height + 8) + 80);
             uc_fun.panel1.BackColor = Color.Red;
+            uc_fun.id = counter++;
             functions.Add(uc_fun);
             this.Controls.Add(uc_fun);
         }
@@ -119,7 +122,15 @@ namespace ucFunctionControl_Project
         public bool b_draw = false;
         private void button2_Click(object sender, EventArgs e)
         {
-            graph.add_new_func(functions[functions.Count-1].expression, new Pen(functions[functions.Count-1].color, 2));
+
+            for (int i = 0; i < functions.Count; i++)
+            {
+                if (!graph.update_func(functions[i].id, functions[i].expression, new Pen(functions[i].color, 2)))
+                {
+                    graph.add_new_func(functions[i].id, functions[i].expression, new Pen(functions[i].color, 2));
+                }
+            }
+
             owner.Refresh();
             b_draw = true;
         }

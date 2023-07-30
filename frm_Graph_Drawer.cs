@@ -31,6 +31,7 @@ namespace Function_Graph_Drawer
             ucFunctionControler1.minmize();
             ucFunctionControler1.graph = ucGraph1;
             ucFunctionControler1.set_form(this);
+            this.AcceptButton = ucFunctionControler1.btn_draw;
             timer1.Start();
         }
 
@@ -46,17 +47,6 @@ namespace Function_Graph_Drawer
             {
                 Tag = '1';
             }
-
-            //if (ucFunctionControler1.b_draw)
-            //{
-            //    ucGraph1.functions.Clear();
-            //    for(int i = 0; i < ucFunctionControler1.functions.Count; i++)
-            //    {
-            //        ucGraph1.add_new_func(ucFunctionControler1.functions[i].expression, new Pen(ucFunctionControler1.functions[i].color, 2));
-            //    }
-            //    ucFunctionControler1.b_draw = false;
-
-            //}
 
 
         }
@@ -90,6 +80,11 @@ namespace Function_Graph_Drawer
         {
             
 
+        }
+
+        private void ucGraph1_Load(object sender, EventArgs e)
+        {
+            
         }
     }
 }

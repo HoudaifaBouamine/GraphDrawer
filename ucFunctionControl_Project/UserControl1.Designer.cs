@@ -43,10 +43,10 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(400, 61);
+            this.panel1.Size = new System.Drawing.Size(398, 61);
             this.panel1.TabIndex = 0;
             // 
-            // button2
+            // btn_draw
             // 
             this.btn_draw.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(35)))), ((int)(((byte)(35)))));
             this.btn_draw.FlatAppearance.BorderSize = 0;
@@ -54,14 +54,14 @@
             this.btn_draw.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_draw.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F);
             this.btn_draw.Location = new System.Drawing.Point(333, 0);
-            this.btn_draw.Name = "button2";
+            this.btn_draw.Name = "btn_draw";
             this.btn_draw.Size = new System.Drawing.Size(64, 61);
             this.btn_draw.TabIndex = 2;
             this.btn_draw.Text = "Draw";
             this.btn_draw.UseVisualStyleBackColor = false;
             this.btn_draw.Click += new System.EventHandler(this.button2_Click);
             // 
-            // button1
+            // btn_add
             // 
             this.btn_add.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(35)))), ((int)(((byte)(35)))));
             this.btn_add.Dock = System.Windows.Forms.DockStyle.Left;
@@ -70,7 +70,7 @@
             this.btn_add.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_add.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.8F);
             this.btn_add.Location = new System.Drawing.Point(0, 0);
-            this.btn_add.Name = "button1";
+            this.btn_add.Name = "btn_add";
             this.btn_add.Size = new System.Drawing.Size(64, 61);
             this.btn_add.TabIndex = 0;
             this.btn_add.Text = "+";
@@ -84,7 +84,7 @@
             this.panel2.BackgroundImage = global::ucFunctionControl_Project.Properties.Resources.img_close_window;
             this.panel2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel2.Location = new System.Drawing.Point(378, 322);
+            this.panel2.Location = new System.Drawing.Point(376, 322);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(22, 80);
             this.panel2.TabIndex = 1;
@@ -100,7 +100,7 @@
             this.Controls.Add(this.panel1);
             this.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(206)))), ((int)(((byte)(206)))), ((int)(((byte)(206)))));
             this.Name = "ucFunctionControler";
-            this.Size = new System.Drawing.Size(400, 772);
+            this.Size = new System.Drawing.Size(398, 772);
             this.Load += new System.EventHandler(this.ucFunctionControler_Load);
             this.Click += new System.EventHandler(this.ucFunctionControler_Click);
             this.panel1.ResumeLayout(false);

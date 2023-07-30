@@ -35,17 +35,29 @@ namespace ucGraph
             timer_MouseChangeTracer.Start();
             functions = new List<clsGraph>();
 
-            //functions.Add(new clsFunction("x^2", 0, 0, new Pen(Color.Blue, 2)));
-            //functions[1].set_expression("x*x");
-
-            draw_functions();
-            
+          
         }
 
-        public void add_new_func(string expression,Pen pen)
+        public void add_new_func(int id,string expression,Pen pen)
         {
-            functions.Add(new clsGraph(expression, pen));
+            functions.Add(new clsGraph(id,expression, pen));
             draw_functions();
+        }
+
+        public bool update_func(int id,string expression,Pen pen)
+        {
+            for (int i = 0; i < functions.Count; i++)
+            {
+                if (functions[i].id == id)
+                {
+                    functions[i] = new clsGraph(id, expression, pen);
+                    draw_functions();
+
+                    return true;
+                }
+            }
+
+            return false;
         }
         private void save_mouse()
         {
@@ -214,12 +226,6 @@ namespace ucGraph
         private void ucGraph_MouseMove(object sender, MouseEventArgs e)
         {
 
-            //if (Control.MouseButtons == MouseButtons.Left)
-            //{
-            //    padding_x = Cursor.Position.X;
-            //    padding_y = Height - Cursor.Position.Y;
-            //    draw_Origin();
-            //}
         }
 
         private void timer_MouseChangeTracer_Tick(object sender, EventArgs e)
@@ -287,11 +293,12 @@ namespace ucGraph
         {
 
             private clsFunction fun_expresstion;
+            public int id;
 
-
-            public clsGraph(string expression,Pen pen)
+            public clsGraph(int id,string expression,Pen pen)
             {
-                fun_expresstion = new clsFunction(expression);
+                this.id = id;
+                this.fun_expresstion = new clsFunction(expression);
                 this.pen = pen;
             }
 
@@ -299,6 +306,8 @@ namespace ucGraph
             {
                 return fun_expresstion.calc(input);
             }
+
+
 
             public float  start;
             public float  end;
@@ -408,7 +417,7 @@ namespace ucGraph
                     {
                         for (int i = 0; i < opNodes.Count; i++)
                         {
-                            if (opNodes[i].isOperation() && (opNodes[i].op == '*' || opNodes[i].op == '/'))
+                            if (i != 0 && opNodes[i].isOperation() && (opNodes[i].op == '*' || opNodes[i].op == '/'))
                             {
                                 float result;
                                 if (opNodes[i].op == '*')
@@ -432,7 +441,7 @@ namespace ucGraph
                     {
                         for (int i = 0; i < opNodes.Count; i++)
                         {
-                            if (opNodes[i].isOperation() && (opNodes[i].op == '+' || opNodes[i].op == '-'))
+                            if (i != 0 && opNodes[i].isOperation() && (opNodes[i].op == '+' || opNodes[i].op == '-'))
                             {
                                 float result;
                                 if (opNodes[i].op == '+')

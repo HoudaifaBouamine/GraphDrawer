@@ -27,6 +27,7 @@ namespace ucFunctionControl_Project
 
         public string expression;
         public Color color;
+        public int id;
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
             this.expression = textBox1.Text;

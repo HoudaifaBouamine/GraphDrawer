@@ -29,20 +29,10 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.ucGraph1 = new ucGraph.ucGraph();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.ucFunctionControler1 = new ucFunctionControl_Project.ucFunctionControler();
+            this.ucGraph1 = new ucGraph.ucGraph();
             this.SuspendLayout();
-            // 
-            // ucGraph1
-            // 
-            this.ucGraph1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
-            this.ucGraph1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ucGraph1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.8F);
-            this.ucGraph1.Location = new System.Drawing.Point(0, 0);
-            this.ucGraph1.Name = "ucGraph1";
-            this.ucGraph1.Size = new System.Drawing.Size(1189, 710);
-            this.ucGraph1.TabIndex = 0;
             // 
             // timer1
             // 
@@ -62,6 +52,17 @@
             this.ucFunctionControler1.Click += new System.EventHandler(this.ucFunctionControler1_Click_1);
             this.ucFunctionControler1.Enter += new System.EventHandler(this.ucFunctionControler1_Enter);
             this.ucFunctionControler1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ucFunctionControler1_MouseDown);
+            // 
+            // ucGraph1
+            // 
+            this.ucGraph1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
+            this.ucGraph1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ucGraph1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.8F);
+            this.ucGraph1.Location = new System.Drawing.Point(0, 0);
+            this.ucGraph1.Name = "ucGraph1";
+            this.ucGraph1.Size = new System.Drawing.Size(1189, 710);
+            this.ucGraph1.TabIndex = 0;
+            this.ucGraph1.Load += new System.EventHandler(this.ucGraph1_Load);
             // 
             // frm_Graph_Drawer
             // 
