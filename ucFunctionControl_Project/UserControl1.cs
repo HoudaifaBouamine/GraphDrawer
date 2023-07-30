@@ -120,8 +120,14 @@ namespace ucFunctionControl_Project
         private void button2_Click(object sender, EventArgs e)
         {
             graph.add_new_func(functions[functions.Count-1].expression, new Pen(functions[functions.Count-1].color, 2));
-            
+            owner.Refresh();
             b_draw = true;
+        }
+
+        Form owner;
+        public void set_form(Form main_form)
+        {
+            this.owner = main_form;
         }
     }
 }

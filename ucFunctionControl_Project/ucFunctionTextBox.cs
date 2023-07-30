@@ -14,9 +14,11 @@ namespace ucFunctionControl_Project
     {
         public ucFunctionTextBox()
         {
+            
             InitializeComponent();
         }
 
+     
         private void ucFunctionTextBox_Load(object sender, EventArgs e)
         {
             this.expression = textBox1.Text;

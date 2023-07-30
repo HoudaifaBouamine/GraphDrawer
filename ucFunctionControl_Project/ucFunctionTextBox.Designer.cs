@@ -62,7 +62,7 @@
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.textBox1);
             this.Name = "ucFunctionTextBox";
-            this.Size = new System.Drawing.Size(353, 50);
+            this.Size = new System.Drawing.Size(353, 47);
             this.Load += new System.EventHandler(this.ucFunctionTextBox_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

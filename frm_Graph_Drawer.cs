@@ -26,10 +26,11 @@ namespace Function_Graph_Drawer
         {
             Tag = '1';
             ucGraph1.set_owner(this);
-            //ucGraph1.add_new_func("pow(x,2)", new Pen(Color.Red, 2));
-            //ucGraph1.add_new_func("pow(x,3)", new Pen(Color.Yellow, 2));
+           
+            
             ucFunctionControler1.minmize();
             ucFunctionControler1.graph = ucGraph1;
+            ucFunctionControler1.set_form(this);
             timer1.Start();
         }
 
