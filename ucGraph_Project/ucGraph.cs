@@ -354,7 +354,7 @@ namespace ucGraph
                             op_nodes.Add(new stOpNode(stOpNode.enType.eClose, ')'));
                             current_number = "";
                         }
-                        else if ("+-*/".Contains(expression[i]))
+                        else if ("+-*/".Contains(expression[i])&&i!=0&&(expression[i-1] != '('))
                         {
                             if (current_number != "")
                                 op_nodes.Add(new stOpNode(stOpNode.enType.eNumber, Convert.ToSingle(current_number)));
@@ -370,7 +370,7 @@ namespace ucGraph
                             op_nodes.Add(new stOpNode(stOpNode.enType.eSeperator, expression[i]));
                             current_number = "";
                         }
-                        else if (char.IsDigit(expression[i]) || expression[i] == '.')
+                        else if (char.IsDigit(expression[i]) || expression[i] == '.' || ("+-".Contains(expression[i])))
                         {
                             current_number += expression[i];
                         }
