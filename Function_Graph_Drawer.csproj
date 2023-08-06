@@ -50,6 +50,9 @@
     <Reference Include="ucGraph">
       <HintPath>..\GraphDrawer\bin\Debug\ucGraph.dll</HintPath>
     </Reference>
+    <Reference Include="ucVisCir">
+      <HintPath>..\..\ucVisCir\bin\Debug\ucVisCir.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="frm_Graph_Drawer.cs">

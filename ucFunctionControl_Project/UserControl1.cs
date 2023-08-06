@@ -110,7 +110,7 @@ namespace ucFunctionControl_Project
         public int counter = 0;
         private void button1_Click(object sender, EventArgs e)
         {
-            ucFunctionTextBox uc_fun = new ucFunctionTextBox();
+            ucFunctionTextBox uc_fun = new ucFunctionTextBox(this);
 
             uc_fun.Location = new Point(30,functions.Count * (uc_fun.Height + 8) + 80);
             uc_fun.panel1.BackColor = Color.Red;

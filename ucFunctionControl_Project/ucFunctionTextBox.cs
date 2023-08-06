@@ -12,9 +12,9 @@ namespace ucFunctionControl_Project
 {
     public partial class ucFunctionTextBox : UserControl
     {
-        public ucFunctionTextBox()
+        public ucFunctionTextBox(ucFunctionControl_Project.ucFunctionControler owner)
         {
-            
+            this.owner = owner;
             InitializeComponent();
         }
 
@@ -26,9 +26,11 @@ namespace ucFunctionControl_Project
             this.textBox1.Focus();
         }
 
+        
         public string expression;
         public Color color;
         public int id;
+        public ucFunctionControl_Project.ucFunctionControler owner;
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
             this.expression = textBox1.Text;
@@ -45,11 +47,11 @@ namespace ucFunctionControl_Project
             colorDialog1.ShowDialog();
             
             panel1.BackColor = colorDialog1.Color;
+            owner.btn_draw.PerformClick();
         }
 
         private void panel1_Paint(object sender, PaintEventArgs e)
         {
-
         }
     }
 }

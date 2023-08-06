@@ -27,3 +27,5 @@ C:\Users\admin\Desktop\git\GraphDrawer\obj\Debug\Function_Graph_Drawer.csproj.Co
 C:\Users\admin\Desktop\git\GraphDrawer\obj\Debug\Function_Graph_Drawer.csproj.CopyComplete
 C:\Users\admin\Desktop\git\GraphDrawer\obj\Debug\Function_Graph_Drawer.exe
 C:\Users\admin\Desktop\git\GraphDrawer\obj\Debug\Function_Graph_Drawer.pdb
+C:\Users\admin\Desktop\git\GraphDrawer\bin\Debug\ucVisCir.dll
+C:\Users\admin\Desktop\git\GraphDrawer\bin\Debug\ucVisCir.pdb

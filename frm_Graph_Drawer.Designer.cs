@@ -30,28 +30,14 @@
         {
             this.components = new System.ComponentModel.Container();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.ucFunctionControler1 = new ucFunctionControl_Project.ucFunctionControler();
             this.ucGraph1 = new ucGraph.ucGraph();
+            this.ucFunctionControler1 = new ucFunctionControl_Project.ucFunctionControler();
             this.SuspendLayout();
             // 
             // timer1
             // 
             this.timer1.Interval = 32;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
-            // 
-            // ucFunctionControler1
-            // 
-            this.ucFunctionControler1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(42)))), ((int)(((byte)(42)))));
-            this.ucFunctionControler1.Cursor = System.Windows.Forms.Cursors.Default;
-            this.ucFunctionControler1.Dock = System.Windows.Forms.DockStyle.Left;
-            this.ucFunctionControler1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(206)))), ((int)(((byte)(206)))), ((int)(((byte)(206)))));
-            this.ucFunctionControler1.Location = new System.Drawing.Point(0, 0);
-            this.ucFunctionControler1.Name = "ucFunctionControler1";
-            this.ucFunctionControler1.Size = new System.Drawing.Size(400, 710);
-            this.ucFunctionControler1.TabIndex = 1;
-            this.ucFunctionControler1.Click += new System.EventHandler(this.ucFunctionControler1_Click_1);
-            this.ucFunctionControler1.Enter += new System.EventHandler(this.ucFunctionControler1_Enter);
-            this.ucFunctionControler1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ucFunctionControler1_MouseDown);
             // 
             // ucGraph1
             // 
@@ -62,6 +48,16 @@
             this.ucGraph1.Name = "ucGraph1";
             this.ucGraph1.Size = new System.Drawing.Size(1189, 710);
             this.ucGraph1.TabIndex = 2;
+            // 
+            // ucFunctionControler1
+            // 
+            this.ucFunctionControler1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(42)))), ((int)(((byte)(42)))));
+            this.ucFunctionControler1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(206)))), ((int)(((byte)(206)))), ((int)(((byte)(206)))));
+            this.ucFunctionControler1.Location = new System.Drawing.Point(0, 0);
+            this.ucFunctionControler1.Name = "ucFunctionControler1";
+            this.ucFunctionControler1.Size = new System.Drawing.Size(398, 772);
+            this.ucFunctionControler1.TabIndex = 3;
+            this.ucFunctionControler1.Load += new System.EventHandler(this.ucFunctionControler1_Load_1);
             // 
             // frm_Graph_Drawer
             // 
@@ -74,16 +70,15 @@
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.frm_Graph_Drawer_MouseDown);
-            this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.frm_Graph_Drawer_MouseMove);
             this.Resize += new System.EventHandler(this.frm_Graph_Drawer_Resize);
             this.ResumeLayout(false);
 
         }
 
         #endregion
-        private ucFunctionControl_Project.ucFunctionControler ucFunctionControler1;
         private System.Windows.Forms.Timer timer1;
         private ucGraph.ucGraph ucGraph1;
+        private ucFunctionControl_Project.ucFunctionControler ucFunctionControler1;
     }
 }
 

@@ -35,7 +35,7 @@ namespace ucGraph
             set_steps_size(30, 30, 1f, 1f);
             draw_Origin();
             save_mouse();
-            timer_MouseChangeTracer.Start();
+            //timer_MouseChangeTracer.Start();
             functions = new List<clsGraph>();
 
           
@@ -196,10 +196,6 @@ namespace ucGraph
 
             }
         }
-        private void pictureBox1_Click(object sender, EventArgs e)
-        {
-            
-        }
 
         private void set_steps_size(int size_x,int size_y,float value_x,float value_y)
         {
@@ -253,9 +249,14 @@ namespace ucGraph
 
         private void ucGraph_MouseMove(object sender, MouseEventArgs e)
         {
-            if (hScrollBar1.Focused) return;
 
-            if (Control.MouseButtons == MouseButtons.Left && mouse_in_range())
+
+            //draw_screen();
+        }
+
+        private void draw_screen()
+        {
+            if (Control.MouseButtons == MouseButtons.Left)
             {
 
                 padding_x += Cursor.Position.X - mouse.X;
@@ -264,18 +265,12 @@ namespace ucGraph
                 save_mouse();
                 draw_functions();
             }
-
-            bool mouse_in_range()
-            {
-                if (owner != null)
-                    return Cursor.Position.X >= this.owner.Location.X && Cursor.Position.X < Width + this.owner.Location.X && Cursor.Position.Y >= this.owner.Location.Y + (this.owner.Height - this.Height - 5) && Cursor.Position.Y < Height + this.owner.Location.Y && owner.Tag.ToString() == "1";
-                else
-                    return true;
-            }
         }
 
         private void timer_MouseChangeTracer_Tick(object sender, EventArgs e)
         {
+
+            draw_screen();
 
             //if (hScrollBar1.Focused) return;
 
@@ -300,7 +295,8 @@ namespace ucGraph
 
         private void ucGraph_MouseDown(object sender, MouseEventArgs e)
         {
-            save_mouse();     
+            save_mouse();
+            timer_MouseChangeTracer.Start();
         }
 
         private void draw_function(clsGraph fun)
@@ -921,9 +917,8 @@ namespace ucGraph
 
             if (hScrollBar1.Focused) return;
 
-            if (Control.MouseButtons == MouseButtons.Left && mouse_in_range())
-            {
-
+            if (Control.MouseButtons == MouseButtons.Left )
+            { 
                 padding_x += Cursor.Position.X - mouse.X;
                 padding_y += -Cursor.Position.Y + mouse.Y;
                 draw_Origin();
@@ -931,13 +926,7 @@ namespace ucGraph
                 draw_functions();
             }
 
-            bool mouse_in_range()
-            {
-                if (owner != null)
-                    return Cursor.Position.X >= this.owner.Location.X && Cursor.Position.X < Width + this.owner.Location.X && Cursor.Position.Y >= this.owner.Location.Y + (this.owner.Height - this.Height - 5) && Cursor.Position.Y < Height + this.owner.Location.Y && owner.Tag.ToString() == "1";
-                else
-                    return true;
-            }
+          
 
         }
 
@@ -947,5 +936,12 @@ namespace ucGraph
             draw_functions();
 
         }
+
+        private void pictureBox1_MouseUp(object sender, MouseEventArgs e)
+        {
+            timer_MouseChangeTracer.Stop();
+        }
+
+
     }
 }

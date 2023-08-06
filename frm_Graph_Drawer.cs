@@ -71,26 +71,21 @@ namespace Function_Graph_Drawer
 
         }
 
-        private void frm_Graph_Drawer_MouseMove(object sender, MouseEventArgs e)
-        {
-         
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            
-
-        }
-
-        private void ucGraph1_Load(object sender, EventArgs e)
-        {
-            
-        }
-
+     
         private void frm_Graph_Drawer_Resize(object sender, EventArgs e)
         {
             ucGraph1.Refresh();
             ucGraph1.update();
+        }
+
+        private void ucFunctionControler1_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ucFunctionControler1_Load_1(object sender, EventArgs e)
+        {
+
         }
     }
 }
