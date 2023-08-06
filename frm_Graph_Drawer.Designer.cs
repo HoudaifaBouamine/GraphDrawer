@@ -61,8 +61,7 @@
             this.ucGraph1.Location = new System.Drawing.Point(0, 0);
             this.ucGraph1.Name = "ucGraph1";
             this.ucGraph1.Size = new System.Drawing.Size(1189, 710);
-            this.ucGraph1.TabIndex = 0;
-            this.ucGraph1.Load += new System.EventHandler(this.ucGraph1_Load);
+            this.ucGraph1.TabIndex = 2;
             // 
             // frm_Graph_Drawer
             // 
@@ -76,15 +75,15 @@
             this.Load += new System.EventHandler(this.Form1_Load);
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.frm_Graph_Drawer_MouseDown);
             this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.frm_Graph_Drawer_MouseMove);
+            this.Resize += new System.EventHandler(this.frm_Graph_Drawer_Resize);
             this.ResumeLayout(false);
 
         }
 
         #endregion
-
-        private ucGraph.ucGraph ucGraph1;
         private ucFunctionControl_Project.ucFunctionControler ucFunctionControler1;
         private System.Windows.Forms.Timer timer1;
+        private ucGraph.ucGraph ucGraph1;
     }
 }
 

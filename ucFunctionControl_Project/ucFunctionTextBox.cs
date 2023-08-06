@@ -23,6 +23,7 @@ namespace ucFunctionControl_Project
         {
             this.expression = textBox1.Text;
             this.color = panel1.BackColor;
+            this.textBox1.Focus();
         }
 
         public string expression;

@@ -117,6 +117,7 @@ namespace ucFunctionControl_Project
             uc_fun.id = counter++;
             functions.Add(uc_fun);
             this.Controls.Add(uc_fun);
+            uc_fun.Focus();
         }
 
         public bool b_draw = false;

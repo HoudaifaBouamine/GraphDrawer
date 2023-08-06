@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Drawing.Text;
+using System.Data.SqlTypes;
 
 namespace ucGraph
 {
@@ -18,7 +19,9 @@ namespace ucGraph
             InitializeComponent();
             padding_x = 125;
             padding_y = 200;
-            pen_per = new Pen(Color.FromArgb(206, 206, 206), 2);
+            pen_per = new Pen(Color.FromArgb(226, 226, 226), 2);
+            pictureBox1.Image = new Bitmap(Width, Height);
+            gfx = Graphics.FromImage(pictureBox1.Image);
 
         }
 
@@ -66,14 +69,21 @@ namespace ucGraph
         }
         private void draw_Origin()
         {
+
+            pictureBox1.Image = new Bitmap(Width, Height);
+            gfx = Graphics.FromImage(pictureBox1.Image);
+
+
+            draw_steps();
             draw_per();
             draw_steps_num();
-            draw_steps();
 
             void draw_steps()
             {
 
                 int size = 3;
+
+                Pen pen_sub_per = new Pen(Color.FromArgb(140, 140, 140),1);
 
                 draw_x_steps();
                 draw_y_steps();
@@ -83,25 +93,44 @@ namespace ucGraph
                 {
                     for (int i = padding_x; i < Width; i += step_size_x)
                     {
-                        gfx.DrawLine(pen_per, i, Height - padding_y - size, i, Height - padding_y + size);
+                        draw_line_x(i);
+
                     }
 
                     for (int i = padding_x; i > -Width; i -= step_size_x)
                     {
-                        gfx.DrawLine(pen_per, i, Height - padding_y - size, i, Height - padding_y + size);
+                        draw_line_x(i);
                     }
                 }
                 void draw_y_steps()
                 {
                     for (int i = Height - padding_y; i >= 0; i -= step_size_y)
                     {
-                        gfx.DrawLine(pen_per, padding_x - size, i, padding_x + size, i);
+
+                        draw_line_y(i);
                     }
 
                     for (int i = Height - padding_y; i < Height; i += step_size_y)
                     {
-                        gfx.DrawLine(pen_per, padding_x - size, i, padding_x + size, i);
+                        draw_line_y(i);
                     }
+                }
+
+                void draw_line_x(int index)
+                {
+                    if (((index - padding_x) / step_size_x) % 2 != 0)
+                        gfx.DrawLine(pen_per, index, Height - padding_y - size, index, Height - padding_y + size);
+                    else
+                        gfx.DrawLine(pen_sub_per, index, 0, index, Height);
+                }
+
+                void draw_line_y(int index)
+                {
+
+                    if (((index - (Height - padding_y)) / step_size_y) % 2 != 0)
+                        gfx.DrawLine(pen_per, padding_x - size, index, padding_x + size, index);
+                    else
+                        gfx.DrawLine(pen_sub_per, 0, index, Width, index);
                 }
             }
 
@@ -161,8 +190,7 @@ namespace ucGraph
             void draw_per(){
 
                 
-                pictureBox1.Image = new Bitmap(Width, Height);
-                gfx = Graphics.FromImage(pictureBox1.Image);
+                
                 gfx.DrawLine(pen_per, 0, Height - padding_y, Width, Height - padding_y);
                 gfx.DrawLine(pen_per, padding_x, 0, padding_x, Height);
 
@@ -225,17 +253,13 @@ namespace ucGraph
 
         private void ucGraph_MouseMove(object sender, MouseEventArgs e)
         {
-
-        }
-
-        private void timer_MouseChangeTracer_Tick(object sender, EventArgs e)
-        {
+            if (hScrollBar1.Focused) return;
 
             if (Control.MouseButtons == MouseButtons.Left && mouse_in_range())
             {
 
-                padding_x +=    Cursor.Position.X - mouse.X;
-                padding_y +=  - Cursor.Position.Y + mouse.Y;
+                padding_x += Cursor.Position.X - mouse.X;
+                padding_y += -Cursor.Position.Y + mouse.Y;
                 draw_Origin();
                 save_mouse();
                 draw_functions();
@@ -243,11 +267,35 @@ namespace ucGraph
 
             bool mouse_in_range()
             {
-                if(owner != null)
-                    return Cursor.Position.X >= this.owner.Location.X  && Cursor.Position.X < Width + this.owner.Location.X && Cursor.Position.Y >= this.owner.Location.Y +(this.owner.Height-this.Height - 5) && Cursor.Position.Y < Height + this.owner.Location.Y && owner.Tag.ToString() == "1";
-                else 
+                if (owner != null)
+                    return Cursor.Position.X >= this.owner.Location.X && Cursor.Position.X < Width + this.owner.Location.X && Cursor.Position.Y >= this.owner.Location.Y + (this.owner.Height - this.Height - 5) && Cursor.Position.Y < Height + this.owner.Location.Y && owner.Tag.ToString() == "1";
+                else
                     return true;
             }
+        }
+
+        private void timer_MouseChangeTracer_Tick(object sender, EventArgs e)
+        {
+
+            //if (hScrollBar1.Focused) return;
+
+            //if (Control.MouseButtons == MouseButtons.Left && mouse_in_range())
+            //{
+
+            //    padding_x +=    Cursor.Position.X - mouse.X;
+            //    padding_y +=  - Cursor.Position.Y + mouse.Y;
+            //    draw_Origin();
+            //    save_mouse();
+            //    draw_functions();
+            //}
+
+            //bool mouse_in_range()
+            //{
+            //    if(owner != null)
+            //        return Cursor.Position.X >= this.owner.Location.X  && Cursor.Position.X < Width + this.owner.Location.X && Cursor.Position.Y >= this.owner.Location.Y +(this.owner.Height-this.Height - 5) && Cursor.Position.Y < Height + this.owner.Location.Y && owner.Tag.ToString() == "1";
+            //    else 
+            //        return true;
+            //}
         }
 
         private void ucGraph_MouseDown(object sender, MouseEventArgs e)
@@ -852,6 +900,51 @@ namespace ucGraph
             }
 
 
+
+        }
+
+        private void hScrollBar1_Scroll(object sender, ScrollEventArgs e)
+        {
+            step_size_x = hScrollBar1.Value;
+            step_size_y = hScrollBar1.Value;
+
+            update();
+        }
+
+        private void pictureBox1_MouseClick(object sender, MouseEventArgs e)
+        {
+
+        }
+
+        private void pictureBox1_MouseEnter(object sender, EventArgs e)
+        {
+
+            if (hScrollBar1.Focused) return;
+
+            if (Control.MouseButtons == MouseButtons.Left && mouse_in_range())
+            {
+
+                padding_x += Cursor.Position.X - mouse.X;
+                padding_y += -Cursor.Position.Y + mouse.Y;
+                draw_Origin();
+                save_mouse();
+                draw_functions();
+            }
+
+            bool mouse_in_range()
+            {
+                if (owner != null)
+                    return Cursor.Position.X >= this.owner.Location.X && Cursor.Position.X < Width + this.owner.Location.X && Cursor.Position.Y >= this.owner.Location.Y + (this.owner.Height - this.Height - 5) && Cursor.Position.Y < Height + this.owner.Location.Y && owner.Tag.ToString() == "1";
+                else
+                    return true;
+            }
+
+        }
+
+        public void update()
+        {
+            draw_Origin();
+            draw_functions();
 
         }
     }

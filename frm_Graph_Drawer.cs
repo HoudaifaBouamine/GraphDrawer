@@ -86,5 +86,11 @@ namespace Function_Graph_Drawer
         {
             
         }
+
+        private void frm_Graph_Drawer_Resize(object sender, EventArgs e)
+        {
+            ucGraph1.Refresh();
+            ucGraph1.update();
+        }
     }
 }
